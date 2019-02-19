@@ -22,18 +22,18 @@ currentTime
     <style>
 
         .outerVideoContainer {
-
+            width: 768px;
+            overflow: scroll;
         }
 
         .innerVideoContainer {
-
-
+            width: 5000px;    
 
         }
 
         video {
-
-
+            position: sticky;
+            left:0;
         }
 
 
@@ -49,7 +49,30 @@ currentTime
 
     <script>
 
-
+document.addEventListener("DOMContentLoaded", startTheScript);
+    
+    let video = document.querySelector('video');
+    
+    function startTheScript() {
+        video.addEventListener("canplaythrough", videoLoaded);
+    }
+    
+    function videoLoaded(){
+        let videoDuration = video.duration;
+    }
+    
+    let scrollDistance = document.querySelector(".outerVideoContainer").scrollWidth- document.querySelector(".outerVideoContainer").clientWidth;
+    
+    document.querySelector(".outerVideoContainer").addEventListener("scroll", scrollFunc);
+    
+    function scrollFunc(evt) {
+        let scrollLeft = evt.target.scrollLeft;
+        video.currentTime = scrollLeft/scrollDistance * video.duration;
+        console.log(video.currentTime)
+        console.log("Scrollleft",evt.target.scrollLeft);
+        console.log("scrollDistance",scrollDistance);
+    }
+    
 
     </script>
 </body>
